@@ -1,0 +1,20 @@
+{
+  "type": "crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "#s#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:oak_planks",
+      "data": 0
+    },
+    "s": {
+      "item": "advancedwoodworking:copper_nail"
+    }
+  },
+  "result": {
+    "item": "minecraft:oak_boat"
+  }
+}
