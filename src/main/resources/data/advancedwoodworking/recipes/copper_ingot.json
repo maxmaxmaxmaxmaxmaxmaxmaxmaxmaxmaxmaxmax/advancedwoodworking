@@ -2,8 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "pattern":
   [
-    " x",
-    "x "
+    "xxx",
+    "xxx",
+    "xxx"
   ],
   "key":
   {
@@ -14,7 +15,7 @@
   },
   "result":
   {
-    "item": "advancedwoodworking:copper_nail",
+    "item": "minecraft:copper_ingot",
     "count": 1
   }
 }

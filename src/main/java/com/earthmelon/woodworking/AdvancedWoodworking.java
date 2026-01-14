@@ -43,13 +43,14 @@ public class AdvancedWoodworking
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // Creates a new Block with the id "examplemod:example_block", combining the namespace and path
-    public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
-    // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
-    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
+
+    public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)));
+
+    public static final RegistryObject<Item> LARGE_BARK_ITEM = ITEMS.register("large_bark", () -> new BlockItem(LARGE_BARK.get(), new Item.Properties().stacksTo(1)));
 
 
     public static final RegistryObject<Item> COPPER_NAIL = ITEMS.register("copper_nail", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties()));
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> ADVANCED_WOODWORKING_CREATIVE_TAB = CREATIVE_MODE_TABS.register("advancedwoodworking_tab", () -> CreativeModeTab.builder()
@@ -57,7 +58,8 @@ public class AdvancedWoodworking
             .icon(() -> COPPER_NAIL.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(COPPER_NAIL.get());
-                output.accept(EXAMPLE_BLOCK_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(COPPER_NUGGET.get());
+                output.accept(LARGE_BARK_ITEM.get());
             }).build());
 
     public AdvancedWoodworking(FMLJavaModLoadingContext context)
@@ -101,7 +103,7 @@ public class AdvancedWoodworking
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(EXAMPLE_BLOCK_ITEM);
+            event.accept(LARGE_BARK_ITEM);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
