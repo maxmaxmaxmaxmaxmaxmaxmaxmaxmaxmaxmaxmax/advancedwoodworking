@@ -44,7 +44,7 @@ public class AdvancedWoodworking
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
 
-    public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)));
+    public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new LargeBark(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)));
 
     public static final RegistryObject<Item> LARGE_BARK_ITEM = ITEMS.register("large_bark", () -> new BlockItem(LARGE_BARK.get(), new Item.Properties().stacksTo(1)));
 

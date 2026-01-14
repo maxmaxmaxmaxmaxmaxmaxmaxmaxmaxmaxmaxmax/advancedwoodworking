@@ -1,6 +1,17 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "advancedwoodworking:block/large_bark",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "advancedwoodworking:block/large_bark",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "advancedwoodworking:block/large_bark"
+    },
+    "facing=south": {
       "model": "advancedwoodworking:block/large_bark"
     }
   }
