@@ -1,11 +1,9 @@
-package com.earthmelon.woodworking;
+package com.earthmelon.woodworking.blocks;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -15,10 +13,16 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
+
+
+
 public class LargeBark extends HorizontalDirectionalBlock {
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    protected static final VoxelShape HITBOX = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
+
+    // TODO: combine three models moved around as seen below or scale up a smaller model. Then rotate based on placed direction.
+    protected static VoxelShape HITBOX = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
+//            .move(1.0D, 0.0D, 0.0D);
 
     public LargeBark(Properties properties) {
         super(properties);

@@ -1,9 +1,10 @@
 package com.earthmelon.woodworking;
 
+import com.earthmelon.woodworking.blocks.CarpetGripper;
+import com.earthmelon.woodworking.blocks.LargeBark;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -35,19 +36,20 @@ public class AdvancedWoodworking
     // Define mod id in a common place for everything to reference
     public static final String MODID = "advancedwoodworking";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
+    static final Logger LOGGER = LogUtils.getLogger();
+    // Create a Deferred Register to hold Blocks which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
+    // Create a Deferred Register to hold Items which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
+    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
 
-    public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new LargeBark(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD)));
-
+    public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new LargeBark(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava()));
     public static final RegistryObject<Item> LARGE_BARK_ITEM = ITEMS.register("large_bark", () -> new BlockItem(LARGE_BARK.get(), new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Block> CARPET_GRIPPER = BLOCKS.register("carpet_gripper", () -> new CarpetGripper(BlockBehaviour.Properties.of().ignitedByLava()));
+    public static final RegistryObject<Item> CARPET_GRIPPER_ITEM = ITEMS.register("carpet_gripper", () -> new BlockItem(CARPET_GRIPPER.get(), new Item.Properties()));
 
     public static final RegistryObject<Item> COPPER_NAIL = ITEMS.register("copper_nail", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties()));
@@ -60,6 +62,7 @@ public class AdvancedWoodworking
                 output.accept(COPPER_NAIL.get());
                 output.accept(COPPER_NUGGET.get());
                 output.accept(LARGE_BARK_ITEM.get());
+                output.accept(CARPET_GRIPPER_ITEM.get());
             }).build());
 
     public AdvancedWoodworking(FMLJavaModLoadingContext context)
