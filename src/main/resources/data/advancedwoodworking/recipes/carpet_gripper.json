@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxx",
+    "yyy"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "advancedwoodworking:copper_nail"
+    },
+
+    "y":
+    {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:copper_ingot",
+    "count": 1
+  }
+}
