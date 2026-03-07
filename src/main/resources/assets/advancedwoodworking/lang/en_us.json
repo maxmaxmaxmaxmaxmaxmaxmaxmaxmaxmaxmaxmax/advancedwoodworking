@@ -1,7 +1,22 @@
 {
+  "block.minecraft.oak_planks":  "Block of Oak Planks",
+  "block.minecraft.birch_planks":  "Block of Birch Planks",
+  "block.minecraft.spruce_planks":  "Block of Spruce Planks",
+  "block.minecraft.jungle_planks":  "Block of Jungle Planks",
+  "block.minecraft.acacia_planks":  "Block of Acacia Planks",
+  "block.minecraft.dark_oak_planks":  "Block of Dark Oak Planks",
+  "block.minecraft.warped_planks":  "Block of Warped Planks",
+  "block.minecraft.crimson_planks":  "Block of Crimson Planks",
+  "block.minecraft.bamboo_planks":  "Block of Bamboo Planks",
+  "block.minecraft.mangrove_planks":  "Block of Mangrove Planks",
+  "block.minecraft.cherry_planks":  "Block of Cherry Planks",
+
   "itemGroup.advancedwoodworking_tab": "Advanced Woodworking",
+
   "item.advancedwoodworking.copper_nail": "Copper Nail",
   "item.advancedwoodworking.copper_nugget": "Copper Nugget",
+  "item.advancedwoodworking.oak_plank": "Oak Plank",
+  "item.advancedwoodworking.birch_plank": "Birch Plank",
 
   "block.advancedwoodworking.large_bark": "Large Bark",
   "block.advancedwoodworking.carpet_gripper": "Carpet Gripper"

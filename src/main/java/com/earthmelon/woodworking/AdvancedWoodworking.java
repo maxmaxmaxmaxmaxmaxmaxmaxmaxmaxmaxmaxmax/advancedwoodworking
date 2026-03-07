@@ -2,16 +2,15 @@ package com.earthmelon.woodworking;
 
 import com.earthmelon.woodworking.blocks.CarpetGripper;
 import com.earthmelon.woodworking.blocks.LargeBark;
+import com.earthmelon.woodworking.items.SingularPlank;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -54,6 +53,9 @@ public class AdvancedWoodworking
     public static final RegistryObject<Item> COPPER_NAIL = ITEMS.register("copper_nail", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> OAK_PLANKS = ITEMS.register("oak_plank", () -> new SingularPlank(new Item.Properties(), WoodType.OAK));
+    public static final RegistryObject<Item> BIRCH_PLANKS = ITEMS.register("birch_plank", () -> new SingularPlank(new Item.Properties(), WoodType.BIRCH));
+
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> ADVANCED_WOODWORKING_CREATIVE_TAB = CREATIVE_MODE_TABS.register("advancedwoodworking_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
@@ -63,6 +65,8 @@ public class AdvancedWoodworking
                 output.accept(COPPER_NUGGET.get());
                 output.accept(LARGE_BARK_ITEM.get());
                 output.accept(CARPET_GRIPPER_ITEM.get());
+                output.accept(OAK_PLANKS.get());
+                output.accept(BIRCH_PLANKS.get());
             }).build());
 
     public AdvancedWoodworking(FMLJavaModLoadingContext context)
