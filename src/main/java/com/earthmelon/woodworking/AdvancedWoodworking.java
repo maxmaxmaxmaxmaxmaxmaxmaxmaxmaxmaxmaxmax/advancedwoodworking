@@ -1,11 +1,16 @@
 package com.earthmelon.woodworking;
 
+import com.earthmelon.woodworking.blocks.BrickMould;
 import com.earthmelon.woodworking.blocks.CarpetGripper;
 import com.earthmelon.woodworking.blocks.LargeBark;
 import com.earthmelon.woodworking.items.SingularPlank;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,6 +20,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,6 +49,8 @@ public class AdvancedWoodworking
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    public static final RegistryObject<Block> BRICK_MOULD = BLOCKS.register("brick_mould", () -> new BrickMould(BlockBehaviour.Properties.of()));
+    public static final RegistryObject<Item> BRICK_MOULD_ITEM = ITEMS.register("brick_mould", () -> new BlockItem(BRICK_MOULD.get(), new Item.Properties()));
 
     public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new LargeBark(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava()));
     public static final RegistryObject<Item> LARGE_BARK_ITEM = ITEMS.register("large_bark", () -> new BlockItem(LARGE_BARK.get(), new Item.Properties().stacksTo(1)));
@@ -54,9 +62,8 @@ public class AdvancedWoodworking
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> OAK_PLANKS = ITEMS.register("oak_plank", () -> new SingularPlank(new Item.Properties(), WoodType.OAK));
-    public static final RegistryObject<Item> BIRCH_PLANKS = ITEMS.register("birch_plank", () -> new SingularPlank(new Item.Properties(), WoodType.BIRCH));
+//    public static final RegistryObject<Item> BIRCH_PLANKS = ITEMS.register("birch_plank", () -> new SingularPlank(new Item.Properties(), WoodType.BIRCH));
 
-    // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> ADVANCED_WOODWORKING_CREATIVE_TAB = CREATIVE_MODE_TABS.register("advancedwoodworking_tab", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> COPPER_NAIL.get().getDefaultInstance())
@@ -66,7 +73,8 @@ public class AdvancedWoodworking
                 output.accept(LARGE_BARK_ITEM.get());
                 output.accept(CARPET_GRIPPER_ITEM.get());
                 output.accept(OAK_PLANKS.get());
-                output.accept(BIRCH_PLANKS.get());
+//                output.accept(BIRCH_PLANKS.get());
+                output.accept(BRICK_MOULD_ITEM.get());
             }).build());
 
     public AdvancedWoodworking(FMLJavaModLoadingContext context)
@@ -131,6 +139,28 @@ public class AdvancedWoodworking
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+    }
+
+    // doesn't work, check if statement for both conditions and see if anything works.
+    @SubscribeEvent
+    public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event) {
+        Player player = event.getEntity();
+        // Only run on the main server thread
+        if (event.getLevel().isClientSide()) return;
+
+        // Make sure the player clicked with the main hand to avoid firing twice
+        if (event.getHand() != InteractionHand.MAIN_HAND) return;
+
+        // Check if the clicked block is a specific block (e.g., Dirt)
+        Block clickedBlock = event.getLevel().getBlockState(event.getPos()).getBlock();
+        if (clickedBlock == BRICK_MOULD.get() && ItemStack.isSameItem(player.getItemInHand(InteractionHand.MAIN_HAND), new ItemStack(Items.CLAY_BALL))) {
+
+            event.getLevel().setBlock(event.getPos(), Blocks.DIRT.defaultBlockState(), 3);
+
+            // Optional: cancel the event so it stops vanilla behavior (like placing blocks)
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.SUCCESS);
         }
     }
 }
