@@ -45,7 +45,7 @@ public class AdvancedWoodworking
     // Create a Deferred Register to hold Blocks which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
-    public static final DeferredRegister<Item> VANILLA_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "minecraft");
+    public static final DeferredRegister<Item> VANILLA_OVERRIDES = DeferredRegister.create(ForgeRegistries.ITEMS, "minecraft");
 
     // Create a Deferred Register to hold Items which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
@@ -63,7 +63,7 @@ public class AdvancedWoodworking
 
     public static final RegistryObject<Item> COPPER_NAIL = ITEMS.register("copper_nail", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> MOD_CLAY = VANILLA_ITEMS.register("fart", () -> new ModClay(new Item.Properties()));
+    public static final RegistryObject<Item> MOD_CLAY = VANILLA_OVERRIDES.register("clay_ball", () -> new ModClay(new Item.Properties()));
 
     public static final RegistryObject<Item> OAK_PLANKS = ITEMS.register("oak_plank", () -> new SingularPlank(new Item.Properties(), WoodType.OAK));
 //    public static final RegistryObject<Item> BIRCH_PLANKS = ITEMS.register("birch_plank", () -> new SingularPlank(new Item.Properties(), WoodType.BIRCH));
@@ -93,6 +93,7 @@ public class AdvancedWoodworking
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+        VANILLA_OVERRIDES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
