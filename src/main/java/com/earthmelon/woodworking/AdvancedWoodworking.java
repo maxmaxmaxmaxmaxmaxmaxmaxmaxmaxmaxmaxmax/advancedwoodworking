@@ -3,11 +3,11 @@ package com.earthmelon.woodworking;
 import com.earthmelon.woodworking.blocks.BrickMould;
 import com.earthmelon.woodworking.blocks.CarpetGripper;
 import com.earthmelon.woodworking.blocks.LargeBark;
+import com.earthmelon.woodworking.items.ModClay;
 import com.earthmelon.woodworking.items.SingularPlank;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -44,6 +44,9 @@ public class AdvancedWoodworking
     static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+
+    public static final DeferredRegister<Item> VANILLA_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "minecraft");
+
     // Create a Deferred Register to hold Items which will all be registered under the "advancedwoodworking" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "advancedwoodworking" namespace
@@ -60,6 +63,7 @@ public class AdvancedWoodworking
 
     public static final RegistryObject<Item> COPPER_NAIL = ITEMS.register("copper_nail", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MOD_CLAY = VANILLA_ITEMS.register("fart", () -> new ModClay(new Item.Properties()));
 
     public static final RegistryObject<Item> OAK_PLANKS = ITEMS.register("oak_plank", () -> new SingularPlank(new Item.Properties(), WoodType.OAK));
 //    public static final RegistryObject<Item> BIRCH_PLANKS = ITEMS.register("birch_plank", () -> new SingularPlank(new Item.Properties(), WoodType.BIRCH));
@@ -75,6 +79,7 @@ public class AdvancedWoodworking
                 output.accept(OAK_PLANKS.get());
 //                output.accept(BIRCH_PLANKS.get());
                 output.accept(BRICK_MOULD_ITEM.get());
+                output.accept(MOD_CLAY.get());
             }).build());
 
     public AdvancedWoodworking(FMLJavaModLoadingContext context)
@@ -146,6 +151,8 @@ public class AdvancedWoodworking
     @SubscribeEvent
     public static void onBlockRightClick(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
+        ItemStack heldItem = player.getMainHandItem();
+
         // Only run on the main server thread
         if (event.getLevel().isClientSide()) return;
 
@@ -154,9 +161,11 @@ public class AdvancedWoodworking
 
         // Check if the clicked block is a specific block (e.g., Dirt)
         Block clickedBlock = event.getLevel().getBlockState(event.getPos()).getBlock();
-        if (clickedBlock == BRICK_MOULD.get() && ItemStack.isSameItem(player.getItemInHand(InteractionHand.MAIN_HAND), new ItemStack(Items.CLAY_BALL))) {
-
+        if (/*clickedBlock.equals(BRICK_MOULD.get()) &&*/ heldItem.getItem() == Items.CLAY_BALL) {
             event.getLevel().setBlock(event.getPos(), Blocks.DIRT.defaultBlockState(), 3);
+            if (!player.isCreative()) {
+                heldItem.shrink(1);
+            }
 
             // Optional: cancel the event so it stops vanilla behavior (like placing blocks)
             event.setCanceled(true);
