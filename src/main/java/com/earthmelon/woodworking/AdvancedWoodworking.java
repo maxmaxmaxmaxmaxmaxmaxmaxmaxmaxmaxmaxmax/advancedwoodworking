@@ -1,10 +1,7 @@
 package com.earthmelon.woodworking;
 
-import com.earthmelon.woodworking.blocks.BrickMould;
-import com.earthmelon.woodworking.blocks.CarpetGripper;
-import com.earthmelon.woodworking.blocks.LargeBark;
-import com.earthmelon.woodworking.items.ModClay;
-import com.earthmelon.woodworking.items.SingularPlank;
+import com.earthmelon.woodworking.blocks.*;
+import com.earthmelon.woodworking.items.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -54,6 +51,7 @@ public class AdvancedWoodworking
 
     public static final RegistryObject<Block> BRICK_MOULD = BLOCKS.register("brick_mould", () -> new BrickMould(BlockBehaviour.Properties.of()));
     public static final RegistryObject<Item> BRICK_MOULD_ITEM = ITEMS.register("brick_mould", () -> new BlockItem(BRICK_MOULD.get(), new Item.Properties()));
+    public static final RegistryObject<Block> BRICK_MOULD_FILLED = BLOCKS.register("brick_mould_filled", () -> new BrickMouldFilled(BlockBehaviour.Properties.of()));
 
     public static final RegistryObject<Block> LARGE_BARK = BLOCKS.register("large_bark", () -> new LargeBark(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).ignitedByLava()));
     public static final RegistryObject<Item> LARGE_BARK_ITEM = ITEMS.register("large_bark", () -> new BlockItem(LARGE_BARK.get(), new Item.Properties().stacksTo(1)));
@@ -89,9 +87,8 @@ public class AdvancedWoodworking
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
+        // Register the Deferred Register to the mod event bus so mod content get registered
         BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
         VANILLA_OVERRIDES.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered

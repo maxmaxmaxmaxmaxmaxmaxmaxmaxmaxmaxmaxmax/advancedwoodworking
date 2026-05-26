@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import static com.earthmelon.woodworking.AdvancedWoodworking.BRICK_MOULD;
+import static com.earthmelon.woodworking.AdvancedWoodworking.*;
 
 public class ModClay extends Item {
     public ModClay(Properties p_41383_) {
@@ -43,17 +43,17 @@ public class ModClay extends Item {
 //            level.playSound((Player)null, blockpos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
             itemstack.shrink(1);
             player.awardStat(Stats.ITEM_USED.get(itemstack.getItem()));
-            if (!level.isClientSide) {
-                ServerLevel serverlevel = (ServerLevel)level;
-
-                for(int i = 0; i < 5; ++i) {
-                    serverlevel.sendParticles(ParticleTypes.SPLASH, (double)blockpos.getX() + level.random.nextDouble(), (double)(blockpos.getY() + 1), (double)blockpos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
-                }
-            }
+//            if (!level.isClientSide) {
+//                ServerLevel serverlevel = (ServerLevel)level;
+//
+//                for(int i = 0; i < 5; ++i) {
+//                    serverlevel.sendParticles(ParticleTypes.SPLASH, (double)blockpos.getX() + level.random.nextDouble(), (double)(blockpos.getY() + 1), (double)blockpos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
+//                }
+//            }
 
 //            level.playSound((Player)null, blockpos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             //TODO: Create the actual filled block with wet clay
-            level.setBlockAndUpdate(blockpos, Blocks.MUD.defaultBlockState());
+            level.setBlockAndUpdate(blockpos, BRICK_MOULD_FILLED.get().defaultBlockState());
             return InteractionResult.sidedSuccess(level.isClientSide);
         } else {
             return InteractionResult.PASS;
