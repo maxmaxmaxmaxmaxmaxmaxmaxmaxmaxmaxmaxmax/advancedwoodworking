@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "advancedwoodworking:block/wooden_brick_mould_filled",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "advancedwoodworking:block/wooden_brick_mould_filled",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "advancedwoodworking:block/wooden_brick_mould_filled"
+    },
+    "facing=south": {
+      "model": "advancedwoodworking:block/wooden_brick_mould_filled"
+    }
+  }
+}
