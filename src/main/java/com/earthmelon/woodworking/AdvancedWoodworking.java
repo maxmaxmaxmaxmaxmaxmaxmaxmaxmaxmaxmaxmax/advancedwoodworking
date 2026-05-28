@@ -77,7 +77,6 @@ public class AdvancedWoodworking
                 output.accept(OAK_PLANKS.get());
 //                output.accept(BIRCH_PLANKS.get());
                 output.accept(BRICK_MOULD_ITEM.get());
-                output.accept(MOD_CLAY.get());
             }).build());
 
     public AdvancedWoodworking(FMLJavaModLoadingContext context)
